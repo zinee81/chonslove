@@ -1,0 +1,44 @@
+.scroll__container {
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.scroll__container.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.top {
+  color: white;
+  background-color: transparent;
+  background-image: url("/img/TopButton.png");
+  background-size: cover;
+  width: 77px;
+  height: 82px;
+}
+
+.top_text {
+  font-size: 25px;
+  margin-top: 25px;
+}
+
+.top:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .top {
+    width: 54px;
+    height: 58px;
+  }
+
+  .top_text {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+}

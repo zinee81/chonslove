@@ -1,0 +1,487 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 40px;
+  border-radius: 16px;
+  width: 95%;
+  max-width: 900px;
+  max-height: 900px;
+  position: relative;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modalContent::-webkit-scrollbar {
+  display: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  color: #333;
+}
+
+.imageSection {
+  width: 100%; /* 부모 컨테이너의 너비를 100%로 설정 */
+  height: 420px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  overflow: hidden; /* 이미지가 부모 컨테이너를 넘지 않도록 설정 */
+}
+
+.mainImage {
+  width: 100%;
+  object-fit: cover; /* 이미지 비율 유지하면서 컨테이너에 맞추기 */
+}
+
+.contentWrapper {
+  display: flex;
+  margin-top: 15px;
+  /* height: 50%; */
+}
+
+.infoSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.infoSection h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.description {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* 위치와 인원수 스타일 추가 */
+.locationAndDetails {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 8px; /* 요소 간 간격 */
+  margin-top: 30px;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 아이콘과 텍스트 간 간격 */
+  font-size: 14px;
+}
+
+.price {
+  text-align: right;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 1px solid #394a4b;
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+.reservationSection {
+  width: 100%;
+  max-width: 50%; /* 화면 너비 초과 방지 */
+  border-radius: 12px;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.reser_box {
+  border: 1px solid #394a4b;
+  border-radius: 5px;
+  background-color: #fff;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dateSection {
+  position: relative;
+  display: flex;
+}
+
+.inputGroup {
+  cursor: pointer;
+  padding: 10px;
+  border-right: 1px solid black;
+  flex: 1;
+}
+
+.inputGroup:last-child {
+  border-right: 0;
+}
+.inputText {
+  border-top: 1px solid #394a4b;
+}
+
+.inputText textarea {
+  width: 100%;
+  border: 0;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.inputText textarea:focus {
+  border: 0;
+  outline: none;
+}
+
+.inputText textarea {
+  padding: 10px;
+  resize: none;
+  width: 100%;
+  height: 80px;
+  font-size: 14px;
+}
+.inputText textarea::placeholder {
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+.form_category {
+  font-size: 12px;
+  color: #394a4b;
+}
+.form_value {
+  font-size: 14px;
+  color: #b0b0b0;
+  padding-top: 5px;
+}
+
+.reserveButton {
+  width: 100%;
+  background-color: #394a4b;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reserveButton:hover {
+  background-color: #444;
+}
+
+.reviewSection {
+  padding-top: 20px;
+}
+
+.reviewTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.reviewH3 {
+  font-size: 22px;
+  padding-right: 8px;
+}
+
+.reviewSection ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.reviewSection li {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  color: initial; /* 기본 색상 */
+  font-size: 15px;
+}
+
+.reviewItem {
+  height: 120px;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  border: 1px solid #394a4b;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.starRating {
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  color: #ffc107; /* 활성화된 별 색 */
+}
+
+.slideImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* 링크 기본 색상 설정 */
+a {
+  color: initial; /* 기본 색상으로 설정 */
+  text-decoration: none; /* 기본 underline 제거 */
+}
+
+/* 링크 hover 상태에서 색상 설정 */
+a:hover {
+  color: initial; /* hover 상태에서도 기본 색상 유지 */
+  text-decoration: underline; /* hover 시에 underline 추가 */
+}
+
+.activeStar {
+  color: #ffd700; /* 노란색 별 */
+}
+
+.averageRating {
+  font-size: 14px;
+  padding-left: 5px; /* 숫자와 별 사이에 여백 추가 */
+  color: #606060;
+  letter-spacing: 2px;
+}
+
+.reviewDate {
+  font-size: 12px;
+  color: #b5b5b5; /* 날짜 색상 */
+  text-align: right;
+}
+
+.starsWrapper {
+  display: inline-flex;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 40px 0;
+    width: 100%;
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+  .closeButton {
+    top: 5px;
+    right: 15px;
+  }
+  .reservationSection {
+    width: 100%;
+    max-width: 100%; /* 화면 너비 초과 방지 */
+    /* padding: 16px; */
+    padding-left: 0;
+
+    box-sizing: border-box;
+    margin-top: 20px; /* 모바일 화면에서 상단 여백 추가 */
+  }
+
+  .dateSection {
+    flex-wrap: wrap; /* 자식 요소들이 줄 바꿈이 가능하게 설정 */
+  }
+
+  .inputGroup {
+    flex: 1 1 48%; /* 한 줄에 두 개씩 배치되도록 설정 */
+    min-width: 120px; /* 최소 너비 지정 */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .inputGroup label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .inputGroup textarea {
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+  .inputGroup:nth-of-type(2) {
+    border-right: none;
+  }
+  .inputGroup:last-child {
+    border-top: 1px solid black;
+  }
+
+  .reserveButton {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+  }
+  .reviewSection {
+    padding: 20px 20px 0 20px;
+  }
+  .imageSection {
+    border-radius: 0;
+  }
+}
+@media (max-width: 420px) {
+  .dateSection .inputGroup:nth-of-type(1),
+  .dateSection .inputGroup:nth-of-type(2) {
+    width: 49%;
+  }
+  .inputGroup:nth-of-type(3) {
+    border-top: 1px solid #394a4b;
+    width: 100%;
+  }
+  .inputGroup:nth-of-type(2) {
+    border-right: 0;
+  }
+  .inputGroup textarea {
+    width: 100%;
+  }
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.reserveButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.calendar_wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background: white;
+
+  border-radius: 16px;
+}
+
+/* 달력 크기 조정 */
+.calendar_wrapper :global(.react-calendar) {
+  width: 100%;
+}
+
+.guestsToggle {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 5px;
+}
+
+.toggleBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleBtn:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.toggleBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.guestCount {
+  min-width: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.form_value {
+  border-radius: 4px;
+}
+
+/* 체크인, 체크아웃, 인원수 hover 색상
+.inputGroup:hover {
+  background-color: #ddd;
+} */
+
+.guestToggleMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  padding: 15px;
+  cursor: default;
+}
+
+.guestToggleContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.guestsToggle {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.guestCount {
+  min-width: 30px;
+  text-align: center;
+}
+
+.guestToggleFooter {
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.maxGuests {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.true {
+  background-color: #eee !important;
+}
+
+/* ---- */

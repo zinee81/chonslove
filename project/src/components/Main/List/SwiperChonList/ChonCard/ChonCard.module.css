@@ -1,0 +1,59 @@
+.card {
+  /* width: 262px; */
+  /* border: 1px solid black; */
+  overflow: hidden;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.card_img {
+  width: 100%;
+  height: 262px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.chon_address {
+  color: #606060;
+  font-size: 14px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chon_address span {
+  letter-spacing: 1px;
+}
+.address {
+  height: 16px;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  overflow: hidden; /* 넘치는 텍스트 숨기기 */
+  text-overflow: ellipsis; /* 텍스트 끝에 ... 추가 */
+}
+.chon_address div:nth-of-type(2) {
+  display: flex;
+  align-items: center;
+}
+
+.chon_name {
+  font-size: 26px;
+}
+
+/* @media (max-width: 868px) {
+  .card {
+    width: 230px;
+    border: 1px solid black;
+  }
+  .card_img {
+    height: 240px;
+  }
+}
+@media (max-width: 500px) {
+  .card {
+    width: 180px;
+    border: 1px solid black;
+  }
+  .card_img {
+    height: 200px;
+  }
+} */

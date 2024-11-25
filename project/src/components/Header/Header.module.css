@@ -1,0 +1,163 @@
+/*======================*/
+/* header */
+/*======================*/
+
+header {
+  height: 100vh;
+  background-image: url("/img/headerMain.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+@media (max-width: 1000px) {
+  header {
+    height: 90vh;
+  }
+}
+
+/*======================*/
+/* nav */
+/*======================*/
+nav {
+  padding: 10px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav ul li {
+  padding: 10px 10px;
+}
+
+nav ul li a {
+  color: white;
+  font-size: 18px;
+}
+
+nav ul li a:hover {
+  color: #ffe49f;
+}
+
+.logout {
+  color: white;
+  font-size: 18px;
+  background-color: transparent;
+}
+
+.logout:hover {
+  color: #ffe49f;
+  cursor: pointer;
+}
+
+/*======================*/
+/* header 촌스럽게 로고 */
+/*======================*/
+
+.logo_conteiner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 100px 0;
+  text-shadow: 0px 0px 8px #000000;
+}
+
+.logo_wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 250px;
+  overflow: visible;
+  position: relative;
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* 이미지 크기 조정 */
+.logo img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.logo1 {
+  position: absolute;
+  top: 30px;
+  z-index: 1; /* 첫 번째 로고가 뒤로 가게 설정 */
+}
+
+.logo2 {
+  position: absolute;
+  top: 55px; /* 두 번째 로고는 첫 번째 로고 바로 아래에 위치 */
+  z-index: 2; /* 두 번째 로고가 위로 오게 설정 */
+}
+
+/* 모바일 반응형 */
+@media (max-width: 1000px) {
+  .logo_conteiner {
+    padding: 50px 0 150px 0;
+  }
+  .logo_wrap {
+    width: 80px;
+    height: 180px;
+  }
+  .logo img {
+    object-fit: contain;
+  }
+  .logo2 {
+    top: 45px;
+  }
+}
+
+/*======================*/
+/* header 헤드라인 */
+/*======================*/
+.headLine_wrap {
+  padding: 23px;
+  text-shadow: 0px 0px 8px #000000;
+}
+
+.main_headLine {
+  font-size: 70px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  word-break: keep-all; /*단어단위로 줄바꿈*/
+}
+
+.main_headLine_color {
+  color: #ffe49f;
+}
+
+.sub_headLine {
+  font-size: 38px;
+}
+
+@media (max-width: 1000px) {
+  .main_headLine {
+    font-size: 7vw;
+  }
+  .sub_headLine {
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 520px) {
+  .main_headLine {
+    font-size: 36px;
+  }
+  .sub_headLine {
+    font-size: 20px;
+  }
+}

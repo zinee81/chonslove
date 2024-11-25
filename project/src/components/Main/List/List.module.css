@@ -1,0 +1,19 @@
+.chon_list {
+  margin: 60px 0;
+}
+.card_title {
+  padding-left: 23px;
+}
+.card_title p:nth-of-type(1) {
+  font-size: 28px;
+  font-weight: bold;
+  color: #394a4b;
+}
+.card_title p:nth-of-type(2) {
+  color: #606060;
+}
+.card_conteiner {
+  display: flex;
+  justify-content: center;
+  margin: 0 23px;
+}

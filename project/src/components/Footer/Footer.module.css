@@ -1,0 +1,56 @@
+/*======================*/
+/* footer */
+/*======================*/
+
+.footer {
+  background-color: #394a4b;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.footer_text {
+  display: flex;
+  justify-content: center;
+}
+.footer_text img {
+  padding: 5px 12px;
+  flex-wrap: wrap; /* 화면이 좁아지면 이미지를 줄 바꿈 */
+}
+.footer_text img {
+  max-width: 100%; /* 부모 컨테이너에 맞게 이미지 크기 축소 */
+  height: auto; /* 비율을 유지하며 크기 조정 */
+  object-fit: contain; /* 이미지가 비율을 유지하며 부모 영역에 맞게 조정 */
+}
+.footer_Btn {
+  margin: 0 auto;
+  margin-top: 40px;
+  font-size: 30px;
+  font-weight: bold;
+  width: 250px;
+  height: 80px;
+  color: #394a4b;
+  background-color: #ffe49f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.footer_Btn:hover {
+  background-color: #394a4b;
+  color: #ffe49f;
+  border: 1px solid #ffe49f;
+}
+@media (max-width: 1230px) {
+  .footer_text {
+    flex-direction: column;
+    align-items: center; /* 이미지 세로 중앙 정렬 */
+  }
+  .footer_text img {
+    max-width: 80%; /* 이미지가 너무 커지지 않도록 제한 */
+  }
+  .footer_Btn {
+    font-size: 25px;
+    width: 180px;
+    height: 60px;
+  }
+}

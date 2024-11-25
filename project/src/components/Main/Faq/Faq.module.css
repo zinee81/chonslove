@@ -1,0 +1,60 @@
+/*======================*/
+/* FAQ */
+/*======================*/
+
+.FAQ_title {
+  font-size: 28px;
+  font-weight: bold;
+  padding-left: 23px;
+  color: #394a4b;
+}
+.FAQ_warp {
+  padding: 25px;
+  padding-bottom: 100px;
+}
+.FAQ_item {
+  border: 1px solid #e4dbcd;
+  border-bottom-width: 0px;
+}
+.FAQ_item:first-of-type {
+  border-radius: 5px 5px 0 0;
+}
+.FAQ_item:last-of-type {
+  border-radius: 0 0 5px 5px;
+  border-bottom-width: 1px;
+}
+/*질문*/
+.FAQ_question {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #394a4b;
+}
+
+/* 화살표 회전 효과 */
+.FAQ_question img {
+  transition: transform 0.3s ease;
+}
+
+/*답*/
+.FAQ_answer {
+  display: none; /* 기본적으로 숨김 */
+  color: #394a4b;
+  line-height: 25px;
+  letter-spacing: 0.5px;
+  padding: 20px 30px;
+  background-color: #e4dbcd;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+@media (max-width: 420px) {
+  .FAQ_question {
+    font-size: 16px;
+  }
+  .FAQ_question img {
+    display: none;
+  }
+}

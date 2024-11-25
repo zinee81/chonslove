@@ -1,0 +1,21 @@
+/* 기본 스타일 덮어쓰기 */
+.swiper-pagination-fraction {
+  bottom: 20px !important;
+  left: auto !important;
+  right: 20px !important;
+  position: absolute !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff !important;
+  padding: 5px 10px;
+  border-radius: 50px;
+  width: 75px !important;
+  height: 35px !important;
+  transform: none !important;
+  z-index: 10;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: light;
+}
+
+.swiper-pagination-current {
+  font-size: 15px;
+}

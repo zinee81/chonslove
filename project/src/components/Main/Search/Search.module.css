@@ -1,0 +1,237 @@
+/*======================*/
+/* 촌캉스 검색 */
+/*======================*/
+.search {
+  background-color: #e4dbcd;
+  padding: 100px 0;
+}
+
+.search_title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: bold;
+  padding-bottom: 25px;
+  color: #394a4b;
+}
+.search_warp {
+  position: relative;
+  max-width: 1000px;
+  border-radius: 100px;
+  background-color: white;
+  padding: 15px 15px 15px 80px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  align-items: center;
+}
+.search_category_warp {
+  margin-left: 10px;
+  width: 170px;
+  height: 59px;
+  border-right: 1px solid #d3bead;
+  position: relative;
+  cursor: pointer;
+}
+
+.search_category_warp.guests_warp {
+  border-right: none;
+}
+
+.search_category {
+  font-size: 16px;
+  color: #394a4b;
+}
+.search_value {
+  font-size: 18px;
+  color: #b0b0b0;
+  padding-top: 10px;
+}
+
+.search_Btn_warp1 {
+  width: 185px;
+  display: flex;
+  justify-content: flex-end;
+}
+.search_Btn_warp2 {
+  display: none;
+}
+
+.search_Btn1 {
+  width: 80px;
+  height: 80px;
+  background-color: #394a4b;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.search_Btn1:hover {
+  background-color: #2c3b3b;
+}
+
+/* 촌캉스 검색  반응형*/
+@media (max-width: 1000px) {
+  .search {
+    padding: 50px 0;
+  }
+  .search_conteiner {
+    margin: 0 23px;
+  }
+
+  .search_warp {
+    max-width: 580px;
+    border-radius: 10px;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+  .search_category_warp {
+    border: none;
+    padding: 10px 0;
+    height: 70px;
+  }
+  .search_category_warp:first-of-type {
+    width: 100%;
+    border-bottom: 1px solid #e4dbcd;
+  }
+  .search_category_warp:nth-of-type(2) {
+    width: 45%;
+    border-right: 1px solid #e4dbcd;
+  }
+  .search_category_warp:nth-of-type(3) {
+    width: 45%;
+  }
+  .search_category_warp.guests_warp {
+    width: 100%;
+    border-top: 1px solid #e4dbcd;
+  }
+  .search_Btn_warp1 {
+    display: none;
+  }
+  .search_Btn_warp2 {
+    text-align: center;
+    display: block;
+    max-width: 580px;
+    width: 100%;
+    background-color: #394a4b;
+    font-size: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 15px;
+    color: white;
+    cursor: pointer;
+  }
+  .search_Btn_warp2:hover {
+    background-color: #2c3b3b;
+  }
+}
+
+@media (max-width: 520px) {
+  .search_title {
+    font-size: 28px;
+  }
+}
+
+/* 지역선택 드랍다운 창 */
+.dropdown {
+  position: absolute;
+  top: 145%;
+  left: -4%;
+  width: 300px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.region {
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+/* 선택된 지역 스타일 */
+.selected {
+  background-color: #e8f0fe; /* 선택된 항목 배경색 */
+  border-color: #4285f4; /* 선택된 항목 테두리 색상 */
+  color: #4285f4; /* 선택된 항목 텍스트 색상 */
+
+  &:hover {
+    background-color: #d9e7fd; /* 선택된 항목 호버 시 배경색 */
+  }
+}
+
+.district {
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.district:hover {
+  background: #f0f0f0;
+}
+
+/* 체크인 체크아웃 공유 달력 창 */
+.calendar_wrapper {
+  position: absolute;
+  top: 101%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* 인원수 선택 창 */
+.guests_selector {
+  position: absolute;
+  top: 145%;
+  left: -4%;
+  right: 0;
+  background: white;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.guests_selector button {
+  padding: 5px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+/* 지역선택, 공유 달력, 인원수 선택 창 테블릿,모바일 반응형 */
+@media screen and (max-width: 1000px) {
+  .dropdown {
+    top: 100%;
+  }
+
+  .calendar_wrapper {
+    top: 65.5%;
+    left: 0;
+    transform: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .guests_selector {
+    top: 115%;
+  }
+}

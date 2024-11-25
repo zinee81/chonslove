@@ -1,0 +1,76 @@
+/*=====================*/
+/* 예약 header */
+/*=====================*/
+
+.hostResve {
+  margin: 0 auto;
+  max-width: 400px;
+  border: 1px solid black;
+}
+
+.hostResve_header {
+  background-color: #394a4b;
+  padding: 17px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*=====================*/
+/* 예약 main */
+/*=====================*/
+
+.hostResve_main {
+  padding: 20px;
+}
+.userName {
+  color: #253334;
+  text-align: right;
+  font-size: 16px;
+  padding-bottom: 33px;
+}
+.userName b {
+  font-size: 22px;
+}
+
+.hostResve_title {
+  display: flex;
+  align-items: center;
+}
+.hostResve_title p {
+  font-size: 25px;
+  margin-left: 15px;
+  color: #394a4b;
+}
+
+/* 승인 */
+.approvalResult {
+  background-color: #f3f3f3;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+  /* color: red; */
+  border-radius: 5px;
+}
+
+/* 예약자 정보 */
+.hostResve_box {
+  border: 1px solid #394a4b;
+  border-radius: 5px;
+  display: flex;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.guest_infoValue {
+  width: 250px;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.resveState {
+  align-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}

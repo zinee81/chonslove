@@ -1,0 +1,96 @@
+.guestResve {
+  margin: 0 auto;
+  max-width: 400px;
+  border: 1px solid black;
+}
+
+.guestResve_header {
+  background-color: #394a4b;
+  padding: 17px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.guestResve_main {
+  padding: 20px;
+}
+.guestResve_title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #394a4b;
+  text-align: center;
+  padding: 65px 0 20px 0;
+}
+/* 승인 */
+.approvalResult {
+  background-color: #f3f3f3;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+  color: red;
+  border-radius: 5px;
+}
+
+/* 호스트 게스트 정보 */
+.guestResve_box,
+.guest_infoWarp {
+  border: 1px solid #394a4b;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+/* .host_infoWarp, */
+.guest_infoWarp {
+  display: flex;
+}
+
+.houseName {
+  font-size: 23px;
+  font-weight: bold;
+  color: #394a4b;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.host_flex {
+  display: flex;
+}
+
+.host_info,
+.guest_info div {
+  width: 75px;
+  color: #394a4b;
+  font-size: 18px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.host_infoValue,
+.guest_infoValue div {
+  width: 230px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.host_info div:last-of-type,
+.guest_info div:last-of-type,
+.host_infoValue div:last-of-type,
+.guest_infoValue div:last-of-type {
+  margin-bottom: 0;
+}
+
+/* 버튼 */
+.guestResve_btn {
+  margin: 50px 0 80px 0;
+}
+.guestResve_btn div {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 13px 0;
+  max-width: 358px;
+  background-color: #394a4b;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+}

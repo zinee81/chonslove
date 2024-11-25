@@ -1,0 +1,112 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 0 20px;
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.empty_text {
+  width: 100%;
+  padding-top: 40px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: #394a4b;
+}
+
+@media (max-width: 1200px) {
+  .cardContainer {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .cardContainer {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 868px) {
+  .cardContainer {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 710px) {
+  .cardContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 630px) {
+  .cardContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 530px) {
+  .cardContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cardContainer {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 180px) {
+  .cardContainer {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 70px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 100px 0 50px 0;
+}
+
+.pageItem {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pageItem a {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.active a {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.navButton a {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.disabled a {
+  color: #ccc;
+  cursor: not-allowed;
+}
