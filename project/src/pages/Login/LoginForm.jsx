@@ -4,6 +4,7 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { ShowAlert } from "../../utils/AlertUtils.js";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -28,16 +29,23 @@ const LoginForm = () => {
     console.log("🔑 Login attempt...", formData);
 
     try {
-      const response = await fetch(
-        "https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      if (!formData.id) {
+        ShowAlert("info", "", "아이디를 입력해주세요.");
+        return;
+      }
+
+      if (!formData.password) {
+        ShowAlert("info", "", "비밀번호를 입력해주세요.");
+        return;
+      }
+
+      const response = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
       console.log("📡 Server response:", data);
@@ -61,22 +69,8 @@ const LoginForm = () => {
 
   return (
     <form className={styles.resisterForm} onSubmit={handleSubmit}>
-      <FormGroup
-        label="아이디"
-        type="text"
-        placeholder="아이디를 입력해주세요"
-        value={formData.id}
-        onChange={handleChange}
-        name="id"
-      />
-      <FormGroup
-        label="비밀번호"
-        type="password"
-        placeholder="비밀번호를 입력해주세요"
-        value={formData.password}
-        onChange={handleChange}
-        name="password"
-      />
+      <FormGroup label="아이디" type="text" placeholder="아이디를 입력해주세요" value={formData.id} onChange={handleChange} name="id" />
+      <FormGroup label="비밀번호" type="password" placeholder="비밀번호를 입력해주세요" value={formData.password} onChange={handleChange} name="password" />
       {error && <div className={styles.error}>{error}</div>}
       <ResisterTag />
       <button type="submit" className={styles.loginForm_Btn}>

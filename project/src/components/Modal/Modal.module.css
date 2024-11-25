@@ -329,9 +329,14 @@ a:hover {
     font-size: 15px;
     border-radius: 8px;
   }
-  .inputGroup:nth-of-type(2) {
+  .inputGroup {
     border-right: none;
   }
+
+  .inputGroup:first-child {
+    border-right: 1px solid black;
+  }
+
   .inputGroup:last-child {
     border-top: 1px solid black;
   }
@@ -353,10 +358,7 @@ a:hover {
   .dateSection .inputGroup:nth-of-type(2) {
     width: 49%;
   }
-  .inputGroup:nth-of-type(3) {
-    border-top: 1px solid #394a4b;
-    width: 100%;
-  }
+
   .inputGroup:nth-of-type(2) {
     border-right: 0;
   }

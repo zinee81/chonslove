@@ -1,0 +1,75 @@
+.skeleton_card {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: none;
+}
+
+.skeleton_card_img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-bottom: 10px;
+}
+
+.skeleton_chon_address {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.skeleton_address {
+  flex: 2;
+}
+
+.skeleton_star {
+  flex: 1;
+}
+
+.skeleton_chon_name {
+  margin-top: 10px;
+}
+
+/* Skeleton 내부 span에 대한 스타일 */
+.skeleton_card_img span {
+  height: 100% !important;
+  display: block !important;
+}
+
+/* AccomSearch의 반응형 구조에 맞춘 미디어 쿼리 */
+@media (max-width: 1200px) {
+  .skeleton_card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .skeleton_card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 868px) {
+  .skeleton_card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 710px) {
+  .skeleton_card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 530px) {
+  .skeleton_card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .skeleton_card {
+    max-width: 100%;
+  }
+}

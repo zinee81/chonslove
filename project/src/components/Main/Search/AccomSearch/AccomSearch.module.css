@@ -10,6 +10,9 @@
   gap: 30px;
 }
 
+.skeleton_container {
+  margin-top: 150px;
+}
 .empty_text {
   width: 100%;
   padding-top: 40px;
