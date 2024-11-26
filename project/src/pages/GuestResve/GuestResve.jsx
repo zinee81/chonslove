@@ -17,7 +17,7 @@ export default function GuestResve() {
 
   const fetchReservationData = async () => {
     try {
-      const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/reservations/?reservationId=${id}`);
+      const response = await fetch(`http://152.69.234.13:8080/reservations/?reservationId=${id}`);
 
       const data = await response.json();
 
@@ -69,7 +69,7 @@ export default function GuestResve() {
     if (confirmCancel.isConfirmed) {
       // 확인 클릭 시 예약 취소 함수 호출
       try {
-        const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/reservations/delete/${id}`, {
+        const response = await fetch(`http://152.69.234.13:8080/reservations/delete/${id}`, {
           method: "PUT", // 필요한 HTTP 메서드 설정
         });
 
