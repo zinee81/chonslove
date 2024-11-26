@@ -13,10 +13,7 @@ router.get("/", async (req, res) => {
   try {
     // 예약 id를 조회해서 예약 내역을 가져옴
     const reservationId = req.query.reservationId;
-    const reservation = await Reservation.findOne({ _id: reservationId })
-      .populate("accommodationId", "name address phone price region")
-      .populate("userId", "name phone")
-      .sort({ startDate: -1 });
+    const reservation = await Reservation.findOne({ _id: reservationId }).populate("accommodationId", "name address phone price region").populate("userId", "name phone").sort({ startDate: -1 });
     // const reservations = await Reservation.find({ accommodationId: accommodationId }).populate("accommodationId", "name address price region").populate("userId", "name phone").sort({ startDate: -1 });
 
     if (reservation) {
@@ -37,8 +34,7 @@ router.post("/create", async (req, res) => {
   session.startTransaction();
 
   try {
-    const { accommodationId, userId, startDate, endDate, person, message } =
-      req.body;
+    const { accommodationId, userId, startDate, endDate, person, message } = req.body;
     const nowDate = new Date(new Date().getTime() + 9 * 60 * 60 * 1000); // 대한민국 시간
 
     // 2. 예약 생성(reservation 에 insert)
@@ -97,10 +93,7 @@ router.put("/confirm/:id", async (req, res) => {
     const reservationId = req.params.id;
 
     // reservations 컬렉션에서 해당 예약의 state를 "comfirm" 으로 변경
-    const updateReservation = await Reservation.findOneAndUpdate(
-      { _id: new ObjectId(reservationId) },
-      { $set: { state: "confirm" } }
-    );
+    const updateReservation = await Reservation.findOneAndUpdate({ _id: new ObjectId(reservationId) }, { $set: { state: "confirm" } });
 
     if (!updateReservation) {
       return res.status(404).json({ message: "예약을 찾을 수 없습니다." });
@@ -163,10 +156,7 @@ router.put("/decline/:id", async (req, res) => {
     const reservationId = req.params.id;
     console.log("reservationId : ", reservationId);
 
-    const declineReservation = await Reservation.findOneAndUpdate(
-      { _id: new ObjectId(reservationId) },
-      { $set: { state: "decline" } }
-    );
+    const declineReservation = await Reservation.findOneAndUpdate({ _id: new ObjectId(reservationId) }, { $set: { state: "decline" } });
 
     res.status(200).json({ message: "예약이 거절 되었습니다." });
 
@@ -189,10 +179,7 @@ router.put("/delete/:id", async (req, res) => {
   try {
     const reservationId = req.params.id;
 
-    const deleteReservation = await Reservation.findOneAndUpdate(
-      { _id: new ObjectId(reservationId) },
-      { $set: { state: "delete" } }
-    );
+    const deleteReservation = await Reservation.findOneAndUpdate({ _id: new ObjectId(reservationId) }, { $set: { state: "delete" } });
 
     if (!deleteReservation) {
       throw new Error("예약을 찾을 수 없습니다.");
@@ -271,10 +258,7 @@ router.put("/update/:id", async (req, res) => {
           $gte: oldReservation.startDate,
           $lte: oldReservation.endDate,
         },
-        $or: [
-          { "am.reservationId": oldReservation._id },
-          { "pm.reservationId": oldReservation._id },
-        ],
+        $or: [{ "am.reservationId": oldReservation._id }, { "pm.reservationId": oldReservation._id }],
       },
       {
         $set: {
@@ -288,11 +272,7 @@ router.put("/update/:id", async (req, res) => {
     );
 
     // 3. 새로운 날짜로 예약 수정
-    const updatedReservation = await Reservation.findByIdAndUpdate(
-      id,
-      { startDate: start, endDate: end },
-      { new: true, session }
-    );
+    const updatedReservation = await Reservation.findByIdAndUpdate(id, { startDate: start, endDate: end }, { new: true, session });
 
     // 4. 새로운 타임슬롯 생성 또는 업데이트
     const dates = [];

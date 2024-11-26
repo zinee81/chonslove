@@ -90,6 +90,12 @@
 ### react-calendar
 * react-calendar는 날짜와 달력을 쉽게 구현할 수 있게 도와주는 라이브러리입니다.
 * 게스트가 특정 날짜를 선택하여 숙소를 검색할 수 있고 예약신청을 할수있는 기능을 구현하는데 사용했습니다.
+### react-loading-skeleton
+* react-loading-skeleton은 로딩 상태를 시각적으로 표현하는 라이브러리입니다.
+* 페이지 로딩 중이나 데이터를 기다리는 동안, 사용자에게 로딩 상태를 보여주기 위해 사용했습니다. 
+### react-icons
+* react-icons는 React 애플리케이션에서 다양한 아이콘을 쉽게 사용할 수 있는 라이브러리입니다.
+* 다양한 인터페이스에서 아이콘을 사용했습니다.
 ### react-paginate
 * react-paginate는 페이지 네비게이션을 구현하기 위한 라이브러리입니다.
 * 숙소 검색하기를 했을시 나오는 결과들을 화면에 나누어 출력하기 위해 사용했습니다.
@@ -120,6 +126,9 @@
  ┣ 📂assets
  ┃ ┗ 📜react.svg
  ┣ 📂components
+ ┃ ┣ 📂CardSkeleton
+ ┃ ┃ ┣ 📜CardSkeleton.jsx
+ ┃ ┃ ┗ 📜CardSkeleton.module.css
  ┃ ┣ 📂Footer
  ┃ ┃ ┣ 📜Footer.jsx
  ┃ ┃ ┗ 📜Footer.module.css
@@ -203,6 +212,27 @@
 <br>
 
 ## ✨ 구현 기능
+### 회원가입 · 로그인
+* 회원가입과 로그인을 할수있다.
+* 알림톡을 보내기위한 정보수집을 위해 회원가입 기능을 넣었습니다.
+<img src="https://github.com/user-attachments/assets/617ed3ef-0e75-44d4-9c36-847bb71982af" width="900" >
+
+<br>
+<br>
+
+### 숙소 검색
+* 지역, 체크인, 체크아웃, 인원수로 숙소를 검색할 수 있습니다.
+<img src="https://github.com/user-attachments/assets/ad86859a-61ef-4bee-9765-ec9e76e37cbe" width="900" >
+
+<br>
+<br>
+
+### 알림톡
+* 숙소 상세정보에서 게스트가 예약신청을 누를시 호스트와 게스트에게 알림톡을 보냅니다.
+* 호스트는 받은 알림톡의 url을 눌러 예약 정보를 확인하고 승인 or 거절을 할 수 있습니다.
+* 게스트는 받은 알림톡의 url을 눌러 예약 정보를 확인하고 예약 취소를 할수있습니다.
+* 승인시 게스트에게 승인 알림톡이 날아가고 호스트와 게스트는 예약 정보창에서  서로의 이름 or 전화번호를 확인할 수 있습니다.
+* 거절시 게스트에게 거절 알림톡이 갑니다.
 
 <br>
 <br>

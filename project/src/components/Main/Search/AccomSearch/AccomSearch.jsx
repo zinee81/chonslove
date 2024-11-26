@@ -8,8 +8,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 export default function AccomSearch({ accommodations, isLoading }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
+  // 화면 크기에 따라 itemsPerPage 조절
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -24,26 +24,20 @@ export default function AccomSearch({ accommodations, isLoading }) {
       }
     };
 
+    // 초기 실행
     handleResize();
+
+    // resize 이벤트 리스너 등록
     window.addEventListener("resize", handleResize);
 
-    // 초기 로딩 상태 해제
-    const timer = setTimeout(() => {
-      setIsInitialLoad(false);
-    }, 500);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timer);
-    };
+    // cleanup
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 검색 결과가 변경될 때마다 페이지를 1페이지로 리셋
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [accommodations]);
+  // 전체 페이지 수 계산
+  const pageCount = Math.ceil(accommodations?.length / itemsPerPage);
 
-  const pageCount = Math.ceil((accommodations?.length || 0) / itemsPerPage);
+  // 현재 페이지에 표시할 숙소 데이터
   const currentAccommodations = accommodations?.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
@@ -51,11 +45,9 @@ export default function AccomSearch({ accommodations, isLoading }) {
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
-    // 페이지 변경 시 상단으로 스크롤
   };
 
-  // 로딩 중이거나 초기 로딩 상태일 때 스켈레톤 표시
-  if (isLoading || isInitialLoad) {
+  if (isLoading) {
     return (
       <div className={styles.skeleton_container}>
         <div className={styles.container}>
@@ -71,7 +63,6 @@ export default function AccomSearch({ accommodations, isLoading }) {
     );
   }
 
-  // 데이터가 없거나 빈 배열일 때
   if (!accommodations || accommodations.length === 0) {
     return <div className={styles.empty_text}>검색된 숙소가 없습니다.</div>;
   }
@@ -91,11 +82,10 @@ export default function AccomSearch({ accommodations, isLoading }) {
         nextClassName={styles.navButton}
         disabledClassName={styles.disabled}
         pageClassName={styles.pageItem}
-        forcePage={currentPage} // 현재 페이지 강제 지정
       />
 
       <div className={styles.cardContainer}>
-        {currentAccommodations?.map((accommodation) => (
+        {currentAccommodations.map((accommodation) => (
           <ChonCard key={accommodation._id} accommodations={accommodation} />
         ))}
       </div>
