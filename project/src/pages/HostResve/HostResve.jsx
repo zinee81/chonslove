@@ -31,7 +31,7 @@ export default function HostResve() {
 
     setLoading(true);
     try {
-      const response = await fetch(`https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/reservations/?reservationId=${reservationId}`);
+      const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/reservations/?reservationId=${reservationId}`);
 
       const data = await response.json();
 
@@ -82,7 +82,7 @@ export default function HostResve() {
         url: `chonslove.netlify.app/guest/${reservationId}`,
       };
 
-      const response = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/alarm/confirm", {
+      const response = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/alarm/confirm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export default function HostResve() {
     }
 
     try {
-      const response = await fetch(`https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/reservations/confirm/${reservationId}`, {
+      const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/reservations/confirm/${reservationId}`, {
         method: "PUT",
       });
 
@@ -137,7 +137,7 @@ export default function HostResve() {
         reservationId: reservationId,
       };
 
-      const response = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/alarm/decline", {
+      const response = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/alarm/decline", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ export default function HostResve() {
 
   async function reservationDecline() {
     try {
-      const response = await fetch(`https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/reservations/decline/${reservationId}`, {
+      const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/reservations/decline/${reservationId}`, {
         method: "PUT", // 필요한 HTTP 메서드 설정
       });
 
