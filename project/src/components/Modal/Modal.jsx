@@ -37,7 +37,7 @@ export default function Modal({ accommodation, onClose }) {
   useEffect(() => {
     const fetchTimeSlots = async () => {
       try {
-        const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/accommodations/timeslots?accommodationId=${accommodation._id}`);
+        const response = await fetch(`https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/accommodations/timeslots?accommodationId=${accommodation._id}`);
 
         const data = await response.json();
         setTimeSlots(data);
@@ -57,7 +57,7 @@ export default function Modal({ accommodation, onClose }) {
         url: `chonslove.netlify.app/guest/${reservationData._id}`,
       };
 
-      const response = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/alarm/request_guest", {
+      const response = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/alarm/request_guest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ export default function Modal({ accommodation, onClose }) {
         url: `chonslove.netlify.app/host/resve?id=${reservationData._id}`,
       };
 
-      const response = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/alarm/request_host", {
+      const response = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/alarm/request_host", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function Modal({ accommodation, onClose }) {
 
       console.log("Sending reservation data:", reservationData);
 
-      const response = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/reservations/create", {
+      const response = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/reservations/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -372,7 +372,10 @@ export default function Modal({ accommodation, onClose }) {
               </div>
 
               <div className={styles.inputText}>
-                <textarea placeholder="전달사항이 있으시면 입력해주세요." onChange={(e) => setRequests(e.target.value)}></textarea>
+                <textarea
+                  placeholder="전달사항이 있으시면 입력해주세요."
+                  onChange={(e) => setRequests(e.target.value)}
+                ></textarea>
               </div>
             </div>
 

@@ -90,7 +90,7 @@ const RegisterForm = () => {
       }
 
       // 회원가입 요청
-      const joinResponse = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/user/join", {
+      const joinResponse = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/user/join", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const RegisterForm = () => {
 
       if (joinResponse.ok && joinData.message === "회원가입이 완료되었습니다.") {
         // 회원가입 성공 후 자동 로그인 요청
-        const loginResponse = await fetch("https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/user/login", {
+        const loginResponse = await fetch("https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/user/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

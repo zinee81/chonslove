@@ -13,11 +13,13 @@ export const searchAccommodations = async (searchParams) => {
     if (checkOut) queryParams.append("checkOut", checkOut);
 
     console.log("검색 요청:", {
-      URL: `https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/accommodations/search`,
+      URL: `https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/accommodations/search`,
       params: Object.fromEntries(queryParams),
     });
 
-    const response = await fetch(`https://port-0-chonslove-m3xuhnug314b3f1c.sel4.cloudtype.app/accommodations/search?${queryParams}`);
+    const response = await fetch(
+      `https://port-0-chon-m3qz4omzb344e0d7.sel4.cloudtype.app/accommodations/search?${queryParams}`
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
