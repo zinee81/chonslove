@@ -9,3 +9,77 @@
 :global .swiper-button-prev:hover:after {
   color: #ffe49f; /* 호버 시 초록색으로 변경 */
 }
+
+.skeletonContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 15px 0;
+  width: 100%;
+}
+
+.skeletonItem {
+  width: 100%;
+  height: 340px;
+}
+
+/* 중단점에 따른 그리드 컬럼 조정 */
+@media (max-width: 1200px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 30px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 868px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .skeletonItem {
+    height: 320px;
+  }
+}
+
+@media (max-width: 710px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 630px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 530px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 180px) {
+  .skeletonContainer {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 70px;
+  }
+}
