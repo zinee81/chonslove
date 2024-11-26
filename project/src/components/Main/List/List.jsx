@@ -26,7 +26,7 @@ export default function List() {
         setRecentAccommodations(null);
         setTopGradeAccommodations(null);
 
-        const recentResponse = await fetch("http://152.69.234.13:8080/accommodations/top_date");
+        const recentResponse = await fetch("api/accommodations/top_date");
         if (!recentResponse.ok) {
           throw new Error("Recent accommodations fetch failed");
         }
@@ -34,7 +34,7 @@ export default function List() {
         setRecentAccommodations(recentData);
         setIsLoadingRecent(false);
 
-        const topResponse = await fetch("http://152.69.234.13:8080/accommodations/top_grade");
+        const topResponse = await fetch("api/accommodations/top_grade");
         if (!topResponse.ok) {
           throw new Error("Top grade accommodations fetch failed");
         }
@@ -67,7 +67,12 @@ export default function List() {
             <p>촌스럽게 신규 입점한 숙소를 만나보세요.</p>
           </div>
           <div className={styles.card_conteiner}>
-            <SwiperChonList accommodations={recentAccommodations} isLoading={isInitialLoad || isLoadingRecent || !recentAccommodations} />
+            <SwiperChonList
+              accommodations={recentAccommodations}
+              isLoading={
+                isInitialLoad || isLoadingRecent || !recentAccommodations
+              }
+            />
           </div>
         </div>
         <div className={styles.chon_list}>
@@ -76,7 +81,12 @@ export default function List() {
             <p>이벤트 진행중인 숙소를 만나보세요.</p>
           </div>
           <div className={styles.card_conteiner}>
-            <SwiperChonList accommodations={topGradeAccommodations} isLoading={isInitialLoad || isLoadingTop || !topGradeAccommodations} />
+            <SwiperChonList
+              accommodations={topGradeAccommodations}
+              isLoading={
+                isInitialLoad || isLoadingTop || !topGradeAccommodations
+              }
+            />
           </div>
         </div>
       </div>

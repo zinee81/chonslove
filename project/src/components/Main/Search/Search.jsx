@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import SearchCalendar from "../../SearchCalender/SearchCalender";
 import styles from "./Search.module.css";
 import searchIcon from "/img/searchIcon.png";
@@ -25,7 +25,7 @@ const REGIONS = [
   "울산",
 ];
 
-export default function Search() {
+export default forwardRef(function Search(props, searchRef) {
   // 상태 관리
   const [activeField, setActiveField] = useState(null); // 현재 활성화된 필드
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -86,7 +86,7 @@ export default function Search() {
   };
 
   return (
-    <div className={styles.search} id="search">
+    <div className={styles.search} ref={searchRef}>
       <div className="w1200">
         <div className={styles.search_conteiner}>
           <div className={styles.search_title}>촌캉스 숙소 검색하기</div>
@@ -218,4 +218,4 @@ export default function Search() {
       )}
     </div>
   );
-}
+});

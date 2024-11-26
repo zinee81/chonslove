@@ -31,7 +31,9 @@ export default function HostResve() {
 
     setLoading(true);
     try {
-      const response = await fetch(`http://152.69.234.13:8080/reservations/?reservationId=${reservationId}`);
+      const response = await fetch(
+        `api/reservations/?reservationId=${reservationId}`
+      );
 
       const data = await response.json();
 
@@ -82,7 +84,7 @@ export default function HostResve() {
         url: `chonslove.netlify.app/guest/${reservationId}`,
       };
 
-      const response = await fetch("http://152.69.234.13:8080/alarm/confirm", {
+      const response = await fetch("api/api/alarm/confirm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,9 +110,12 @@ export default function HostResve() {
     }
 
     try {
-      const response = await fetch(`http://152.69.234.13:8080/reservations/confirm/${reservationId}`, {
-        method: "PUT",
-      });
+      const response = await fetch(
+        `api/reservations/confirm/${reservationId}`,
+        {
+          method: "PUT",
+        }
+      );
 
       const data = await response.json();
 
@@ -137,7 +142,7 @@ export default function HostResve() {
         reservationId: reservationId,
       };
 
-      const response = await fetch("http://152.69.234.13:8080/alarm/decline", {
+      const response = await fetch("api/api/alarm/decline", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,9 +163,12 @@ export default function HostResve() {
 
   async function reservationDecline() {
     try {
-      const response = await fetch(`http://152.69.234.13:8080/reservations/decline/${reservationId}`, {
-        method: "PUT", // 필요한 HTTP 메서드 설정
-      });
+      const response = await fetch(
+        `api/reservations/decline/${reservationId}`,
+        {
+          method: "PUT", // 필요한 HTTP 메서드 설정
+        }
+      );
 
       if (!response.ok) {
         throw new Error("네트워크 응답이 좋지 않습니다.");
@@ -218,7 +226,9 @@ export default function HostResve() {
           <div className={styles.hostResve_box}>
             <div className={styles.guest_info}>
               <div>게스트</div>
-              {reservation.state == "승인완료" && !reservation.view && <div>전화번호</div>}
+              {reservation.state == "승인완료" && !reservation.view && (
+                <div>전화번호</div>
+              )}
               <div>체크인</div>
               <div>체크아웃</div>
               <div>인원수</div>
@@ -226,7 +236,14 @@ export default function HostResve() {
             </div>
             <div className={styles.guest_infoValue}>
               <div>{reservationData.userId.name}</div>
-              {reservation.state == "승인완료" && !reservation.view && <div>{reservationData.userId.phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}</div>}
+              {reservation.state == "승인완료" && !reservation.view && (
+                <div>
+                  {reservationData.userId.phone.replace(
+                    /(\d{3})(\d{4})(\d{4})/,
+                    "$1-$2-$3"
+                  )}
+                </div>
+              )}
               <div>{reservationData.startDate.split("T")[0]}</div>
               <div>{reservationData.endDate.split("T")[0]}</div>
               <div>{reservationData.person}</div>

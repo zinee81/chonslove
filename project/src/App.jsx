@@ -1,19 +1,27 @@
+import { useRef } from "react";
+
 import Footer from "./components/Footer/Footer";
-import GuestResve from "./pages/GuestResve/GuestResve";
 import Header from "./components/Header/Header";
-import HostResve from "./pages/HostResve/HostResve";
 import Main from "./components/Main/Main";
-import Modal from "./components/Modal/Modal";
 import TopButton from "./components/TopButton/TopButton";
+
 import "./index.css";
 
 export default function App() {
+  const searchRef = useRef(null);
+
+  const handleScroll = () => {
+    searchRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <>
       <Header />
-      <Main />
-      {/* 예약정보 (reservationId) 필요 */}
-      <Footer />
+      <Main ref={searchRef} />
+      <Footer scroll={handleScroll} />
       <TopButton />
     </>
   );

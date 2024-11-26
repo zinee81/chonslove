@@ -37,7 +37,9 @@ export default function Modal({ accommodation, onClose }) {
   useEffect(() => {
     const fetchTimeSlots = async () => {
       try {
-        const response = await fetch(`http://152.69.234.13:8080/accommodations/timeslots?accommodationId=${accommodation._id}`);
+        const response = await fetch(
+          `api/accommodations/timeslots?accommodationId=${accommodation._id}`
+        );
 
         const data = await response.json();
         setTimeSlots(data);
@@ -57,7 +59,7 @@ export default function Modal({ accommodation, onClose }) {
         url: `chonslove.netlify.app/guest/${reservationData._id}`,
       };
 
-      const response = await fetch("http://152.69.234.13:8080/alarm/request_guest", {
+      const response = await fetch("api/alarm/request_guest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +86,7 @@ export default function Modal({ accommodation, onClose }) {
         url: `chonslove.netlify.app/host/resve?id=${reservationData._id}`,
       };
 
-      const response = await fetch("http://152.69.234.13:8080/alarm/request_host", {
+      const response = await fetch("api/alarm/request_host", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +135,7 @@ export default function Modal({ accommodation, onClose }) {
 
       console.log("Sending reservation data:", reservationData);
 
-      const response = await fetch("http://152.69.234.13:8080/reservations/create", {
+      const response = await fetch("api/reservations/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -167,7 +169,9 @@ export default function Modal({ accommodation, onClose }) {
     return Array.from({ length: 5 }, (_, i) => (
       <span
         key={i}
-        className={`${styles.star} ${i < grade ? styles.activeStar : styles.star}`}
+        className={`${styles.star} ${
+          i < grade ? styles.activeStar : styles.star
+        }`}
         style={{ color: i < grade ? "gold" : "#dddddd" }} // 별 색을 노란색과 회색으로 지정
       >
         ★
@@ -249,7 +253,11 @@ export default function Modal({ accommodation, onClose }) {
             {accommodation.photo.map((photo, index) => (
               <SwiperSlide key={index}>
                 <div className={styles.imageSection}>
-                  <img src={`/img/${accommodation.accommodation_num}/${photo}`} alt={`숙소 이미지 ${index + 1}`} className={styles.mainImage} />
+                  <img
+                    src={`/img/${accommodation.accommodation_num}/${photo}`}
+                    alt={`숙소 이미지 ${index + 1}`}
+                    className={styles.mainImage}
+                  />
                 </div>
               </SwiperSlide>
             ))}
@@ -271,11 +279,14 @@ export default function Modal({ accommodation, onClose }) {
                 </p>
                 <p className={styles.detail}>
                   <img src={icon2} alt="인원 아이콘" className={styles.icon} />
-                  기준 {accommodation.person}명 / 최대 {accommodation.max_person} 명
+                  기준 {accommodation.person}명 / 최대{" "}
+                  {accommodation.max_person} 명
                 </p>
               </div>
             </div>
-            <p className={styles.price}>₩ {accommodation.price.toLocaleString()}</p>
+            <p className={styles.price}>
+              ₩ {accommodation.price.toLocaleString()}
+            </p>
           </div>
 
           {/* 예약폼 */}
@@ -291,12 +302,21 @@ export default function Modal({ accommodation, onClose }) {
                   className={`${styles.inputGroup} ${styles.checkIn} ${checkInClass}`}
                 >
                   <div className={styles.form_category}>체크인</div>
-                  <div className={styles.form_value}>{checkIn ? new Date(checkIn).toLocaleDateString() : "날짜 추가"}</div>
+                  <div className={styles.form_value}>
+                    {checkIn
+                      ? new Date(checkIn).toLocaleDateString()
+                      : "날짜 추가"}
+                  </div>
                 </div>
 
                 {showCheckInCalendar && (
                   <div className={styles.calendar_wrapper}>
-                    <StyledCalender onChange={handleCheckInSelect} value={checkIn ? new Date(checkIn) : null} isCheckIn={true} timeSlots={timeSlots} />
+                    <StyledCalender
+                      onChange={handleCheckInSelect}
+                      value={checkIn ? new Date(checkIn) : null}
+                      isCheckIn={true}
+                      timeSlots={timeSlots}
+                    />
                   </div>
                 )}
 
@@ -309,7 +329,11 @@ export default function Modal({ accommodation, onClose }) {
                   className={`${styles.inputGroup} ${styles.checkOut} ${checkOutClass}`}
                 >
                   <div className={styles.form_category}>체크아웃</div>
-                  <div className={styles.form_value}>{checkOut ? new Date(checkOut).toLocaleDateString() : "날짜 추가"}</div>
+                  <div className={styles.form_value}>
+                    {checkOut
+                      ? new Date(checkOut).toLocaleDateString()
+                      : "날짜 추가"}
+                  </div>
                 </div>
 
                 {showCheckOutCalendar && (
@@ -333,7 +357,9 @@ export default function Modal({ accommodation, onClose }) {
                   }}
                 >
                   <div className={styles.form_category}>인원수</div>
-                  <div className={styles.form_value}>{guests === 0 ? "게스트 추가" : `${guests}명`}</div>
+                  <div className={styles.form_value}>
+                    {guests === 0 ? "게스트 추가" : `${guests}명`}
+                  </div>
 
                   {showGuestToggle && (
                     <div className={styles.guestToggleMenu}>
@@ -355,7 +381,9 @@ export default function Modal({ accommodation, onClose }) {
                             className={styles.toggleBtn}
                             onClick={(e) => {
                               e.stopPropagation();
-                              setGuests((prev) => Math.min(accommodation.max_person, prev + 1));
+                              setGuests((prev) =>
+                                Math.min(accommodation.max_person, prev + 1)
+                              );
                             }}
                             disabled={guests >= accommodation.max_person}
                           >
@@ -364,7 +392,9 @@ export default function Modal({ accommodation, onClose }) {
                         </div>
                       </div>
                       <div className={styles.guestToggleFooter}>
-                        <span className={styles.maxGuests}>최대 {accommodation.max_person}명</span>
+                        <span className={styles.maxGuests}>
+                          최대 {accommodation.max_person}명
+                        </span>
                       </div>
                     </div>
                   )}
@@ -372,12 +402,18 @@ export default function Modal({ accommodation, onClose }) {
               </div>
 
               <div className={styles.inputText}>
-                <textarea placeholder="전달사항이 있으시면 입력해주세요." onChange={(e) => setRequests(e.target.value)}></textarea>
+                <textarea
+                  placeholder="전달사항이 있으시면 입력해주세요."
+                  onChange={(e) => setRequests(e.target.value)}
+                ></textarea>
               </div>
             </div>
 
             {error && <div className={styles.error}>{error}</div>}
-            <button className={styles.reserveButton} onClick={handleReservation}>
+            <button
+              className={styles.reserveButton}
+              onClick={handleReservation}
+            >
               예약 신청하기
             </button>
           </div>

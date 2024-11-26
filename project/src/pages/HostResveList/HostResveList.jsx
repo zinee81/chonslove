@@ -14,11 +14,15 @@ export default function HostResveList() {
 
   const fetchReservation = async () => {
     try {
-      const acc_response = await fetch(`http://152.69.234.13:8080/accommodations/detail?accommodationId=${id}`);
+      const acc_response = await fetch(
+        `api/accommodations/detail?accommodationId=${id}`
+      );
       const acc_data = await acc_response.json();
       setAccommodationName(acc_data.name);
 
-      const response = await fetch(`http://152.69.234.13:8080/accommodations/reservations?accommodationId=${id}`);
+      const response = await fetch(
+        `api/accommodations/reservations?accommodationId=${id}`
+      );
 
       const data = await response.json();
       const reservationDatas = data.reservationData;

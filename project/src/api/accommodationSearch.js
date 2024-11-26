@@ -17,7 +17,7 @@ export const searchAccommodations = async (searchParams) => {
       params: Object.fromEntries(queryParams),
     });
 
-    const response = await fetch(`http://152.69.234.13:8080/accommodations/search?${queryParams}`);
+    const response = await fetch(`api/accommodations/search?${queryParams}`);
 
     if (!response.ok) {
       const errorData = await response.json();

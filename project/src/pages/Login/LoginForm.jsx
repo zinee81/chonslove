@@ -39,7 +39,7 @@ const LoginForm = () => {
         return;
       }
 
-      const response = await fetch("http://152.69.234.13:8080/user/login", {
+      const response = await fetch("api/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,8 +69,22 @@ const LoginForm = () => {
 
   return (
     <form className={styles.resisterForm} onSubmit={handleSubmit}>
-      <FormGroup label="아이디" type="text" placeholder="아이디를 입력해주세요" value={formData.id} onChange={handleChange} name="id" />
-      <FormGroup label="비밀번호" type="password" placeholder="비밀번호를 입력해주세요" value={formData.password} onChange={handleChange} name="password" />
+      <FormGroup
+        label="아이디"
+        type="text"
+        placeholder="아이디를 입력해주세요"
+        value={formData.id}
+        onChange={handleChange}
+        name="id"
+      />
+      <FormGroup
+        label="비밀번호"
+        type="password"
+        placeholder="비밀번호를 입력해주세요"
+        value={formData.password}
+        onChange={handleChange}
+        name="password"
+      />
       {error && <div className={styles.error}>{error}</div>}
       <ResisterTag />
       <button type="submit" className={styles.loginForm_Btn}>

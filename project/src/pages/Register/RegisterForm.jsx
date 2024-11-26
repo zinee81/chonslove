@@ -90,7 +90,7 @@ const RegisterForm = () => {
       }
 
       // 회원가입 요청
-      const joinResponse = await fetch("http://152.69.234.13:8080/user/join", {
+      const joinResponse = await fetch("api/api/user/join", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,9 +100,12 @@ const RegisterForm = () => {
 
       const joinData = await joinResponse.json();
 
-      if (joinResponse.ok && joinData.message === "회원가입이 완료되었습니다.") {
+      if (
+        joinResponse.ok &&
+        joinData.message === "회원가입이 완료되었습니다."
+      ) {
         // 회원가입 성공 후 자동 로그인 요청
-        const loginResponse = await fetch("http://152.69.234.13:8080/user/login", {
+        const loginResponse = await fetch("api/user/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -120,7 +123,11 @@ const RegisterForm = () => {
           ShowAlert("info", "", "회원가입이 완료되었습니다.");
           navigate("/");
         } else {
-          ShowAlert("info", "", "자동 로그인에 실패했습니다. 다시 로그인해주세요.");
+          ShowAlert(
+            "info",
+            "",
+            "자동 로그인에 실패했습니다. 다시 로그인해주세요."
+          );
           navigate("/login");
         }
       } else {
@@ -136,16 +143,55 @@ const RegisterForm = () => {
 
   return (
     <form className={styles.registerForm} onSubmit={handleSubmit}>
-      <FormGroup label="이름" type="text" placeholder="이름을 입력해주세요" value={formData.name || ""} onChange={handleChange} name="name" />
-      <FormGroup label="아이디" type="text" placeholder="아이디를 입력해주세요" value={formData.id || ""} onChange={handleChange} name="id" />
-      <FormGroup label="비밀번호" type="password" placeholder="비밀번호를 입력해주세요" value={formData.password || ""} onChange={handleChange} name="password" />
-      <FormGroup label="비밀번호 확인" type="password" placeholder="비밀번호를 입력해주세요" value={formData.passwordCheck || ""} onChange={handleChange} name="passwordCheck" />
+      <FormGroup
+        label="이름"
+        type="text"
+        placeholder="이름을 입력해주세요"
+        value={formData.name || ""}
+        onChange={handleChange}
+        name="name"
+      />
+      <FormGroup
+        label="아이디"
+        type="text"
+        placeholder="아이디를 입력해주세요"
+        value={formData.id || ""}
+        onChange={handleChange}
+        name="id"
+      />
+      <FormGroup
+        label="비밀번호"
+        type="password"
+        placeholder="비밀번호를 입력해주세요"
+        value={formData.password || ""}
+        onChange={handleChange}
+        name="password"
+      />
+      <FormGroup
+        label="비밀번호 확인"
+        type="password"
+        placeholder="비밀번호를 입력해주세요"
+        value={formData.passwordCheck || ""}
+        onChange={handleChange}
+        name="passwordCheck"
+      />
       {passwordError && <p className={styles.errorMessage}>{passwordError}</p>}
-      <FormGroup label="휴대폰 번호" type="tel" placeholder="휴대폰 번호를 - 없이 입력해주세요" value={formData.phone || ""} onChange={handleChange} name="phone" />
+      <FormGroup
+        label="휴대폰 번호"
+        type="tel"
+        placeholder="휴대폰 번호를 - 없이 입력해주세요"
+        value={formData.phone || ""}
+        onChange={handleChange}
+        name="phone"
+      />
       <CheckboxGroup label="개인정보 처리 및 카카오톡을 통한 알림톡 전송에 동의합니다." />
       <p className={styles.errorMessage}>{passwordError}</p>
 
-      <button type="submit" className={styles.registerForm_Btn} disabled={isLoading}>
+      <button
+        type="submit"
+        className={styles.registerForm_Btn}
+        disabled={isLoading}
+      >
         {isLoading ? "처리중..." : "회원가입"}
       </button>
     </form>

@@ -17,7 +17,7 @@ export default function GuestResve() {
 
   const fetchReservationData = async () => {
     try {
-      const response = await fetch(`http://152.69.234.13:8080/reservations/?reservationId=${id}`);
+      const response = await fetch(`api/reservations/?reservationId=${id}`);
 
       const data = await response.json();
 
@@ -63,13 +63,16 @@ export default function GuestResve() {
   if (!reservationData) return <div>예약 정보가 없습니다.</div>;
 
   async function reservationDelete() {
-    const confirmCancel = await ShowConfirm("question", "예약을 취소하시겠습니까?");
+    const confirmCancel = await ShowConfirm(
+      "question",
+      "예약을 취소하시겠습니까?"
+    );
     // window.confirm("예약을 취소하시겠습니까?");
 
     if (confirmCancel.isConfirmed) {
       // 확인 클릭 시 예약 취소 함수 호출
       try {
-        const response = await fetch(`http://152.69.234.13:8080/reservations/delete/${id}`, {
+        const response = await fetch(`api/reservations/delete/${id}`, {
           method: "PUT", // 필요한 HTTP 메서드 설정
         });
 
@@ -105,16 +108,25 @@ export default function GuestResve() {
           <p style={reservation.color}>{reservation.state}</p>
         </div>
         <div className={styles.guestResve_box}>
-          <div className={styles.houseName}>{reservationData.accommodationId.name}</div>
+          <div className={styles.houseName}>
+            {reservationData.accommodationId.name}
+          </div>
           {reservationData.state === "confirm" && (
             <div>
               <div className={styles.host_flex}>
                 <div className={styles.host_info}>숙소주소</div>
-                <div className={styles.host_infoValue}>{reservationData.accommodationId.address}</div>
+                <div className={styles.host_infoValue}>
+                  {reservationData.accommodationId.address}
+                </div>
               </div>
               <div className={styles.host_flex}>
                 <div className={styles.host_info}>전화번호</div>
-                <div className={styles.host_infoValue}>{reservationData.accommodationId.phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}</div>
+                <div className={styles.host_infoValue}>
+                  {reservationData.accommodationId.phone.replace(
+                    /(\d{3})(\d{4})(\d{4})/,
+                    "$1-$2-$3"
+                  )}
+                </div>
               </div>
             </div>
           )}
