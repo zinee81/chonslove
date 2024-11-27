@@ -9,14 +9,14 @@ const CardSkeleton = () => {
       </div>
       <div className={styles.skeleton_chon_address}>
         <div className={styles.skeleton_address}>
-          <Skeleton height={20} />
+          <Skeleton height={16} />
         </div>
         <div className={styles.skeleton_star}>
-          <Skeleton height={20} />
+          <Skeleton height={16} />
         </div>
       </div>
       <div className={styles.skeleton_chon_name}>
-        <Skeleton height={20} />
+        <Skeleton height={22} />
       </div>
     </div>
   );

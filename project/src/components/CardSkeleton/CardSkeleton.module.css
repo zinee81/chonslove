@@ -1,6 +1,6 @@
 .skeleton_card {
   width: 100%;
-  padding: 10px;
+
   border-radius: 8px;
   background: none;
 }
@@ -8,11 +8,11 @@
 .skeleton_card_img {
   width: 100%;
   aspect-ratio: 1/1;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .skeleton_chon_address {
-  margin: 10px 0;
+  margin: 2px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +20,7 @@
 }
 
 .skeleton_address {
-  flex: 2;
+  flex: 5;
 }
 
 .skeleton_star {
@@ -28,12 +28,12 @@
 }
 
 .skeleton_chon_name {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 /* Skeleton 내부 span에 대한 스타일 */
 .skeleton_card_img span {
-  height: 100% !important;
+  height: 262px !important;
   display: block !important;
 }
 

@@ -2,7 +2,7 @@ import { useState, forwardRef } from "react";
 import SearchCalendar from "../../SearchCalender/SearchCalender";
 import styles from "./Search.module.css";
 import searchIcon from "/img/searchIcon.png";
-import { searchAccommodations } from "../../../api/accommodationSearch";
+import { accommodationAPI } from "../../../api/accommodationAPI";
 import AccomSearch from "./AccomSearch/AccomSearch";
 import { ShowAlert } from "../../../utils/AlertUtils.js";
 
@@ -25,6 +25,13 @@ const REGIONS = [
   "울산",
 ];
 
+// 날짜 형식 변환 유틸리티 함수
+const formatDate = (date) => {
+  if (!date) return "";
+  const kstDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  return kstDate.toISOString().split("T")[0];
+};
+
 export default forwardRef(function Search(props, searchRef) {
   // 상태 관리
   const [activeField, setActiveField] = useState(null); // 현재 활성화된 필드
@@ -38,41 +45,46 @@ export default forwardRef(function Search(props, searchRef) {
   // 검색 처리
   const handleSearch = async () => {
     setActiveField(null);
-    setIsLoading(true); // 검색 시작 시 로딩 시작
+    setIsLoading(true);
 
     try {
-      setError("");
+      // 유효성 검사
+      if (!guests || guests <= 0) {
+        ShowAlert("info", "", "인원 수를 입력해주세요.");
+        return;
+      }
 
-      // 날짜 형식 변환 (YYYY-MM-DD) - 한국 시간 기준
-      const formatDate = (date) => {
-        if (!date) return null;
-        // 한국 시간으로 변환 (UTC+9)
-        const kstDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
-        return kstDate.toISOString().split("T")[0];
-      };
+      if (!selectedRegion) {
+        ShowAlert("info", "", "지역을 선택해주세요.");
+        return;
+      }
 
-      // 검색 파라미터 구성
+      if (!dateRange[0] || !dateRange[1]) {
+        ShowAlert("info", "", "날짜를 선택해주세요.");
+        return;
+      }
+
+      // 검색 파라미터 정제
       const searchParams = {
         region: selectedRegion === "전체" ? "" : selectedRegion,
+        person: guests.toString(),
         checkIn: formatDate(dateRange[0]),
         checkOut: formatDate(dateRange[1]),
-        person: guests,
       };
 
-      console.log("검색 파라미터:", searchParams); // 디버깅용
+      // URLSearchParams에서 빈 값("") 제거
+      const queryString = new URLSearchParams(
+        Object.entries(searchParams).filter(([_, value]) => value !== "")
+      ).toString();
 
-      // API 호출
-      const results = await searchAccommodations(searchParams);
-      setSearchResults(results); // 검색 결과 저장
-      console.log("검색 결과:", results);
-
-      // 여기서 검색 결과를 처리 (예: 상태 업데이트 또는 페이지 이동)
+      const results = await accommodationAPI.search(queryString);
+      setSearchResults(results);
     } catch (error) {
       console.error("검색 오류:", error);
-      setError(error.message || "검색 중 오류가 발생했습니다.");
-      ShowAlert("info", "", error.message || "검색 중 오류가 발생했습니다.");
+      setError(error.message);
+      ShowAlert("info", "", error.message);
     } finally {
-      setIsLoading(false); // 검색 완료 (성공/실패 모두) 후 로딩 종료
+      setIsLoading(false);
     }
   };
 

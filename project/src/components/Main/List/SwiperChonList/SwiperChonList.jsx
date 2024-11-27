@@ -1,19 +1,15 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import { useState, useEffect } from "react";
+
 import Styles from "./SwiperChonList.module.css";
 import ChonCard from "./ChonCard/ChonCard.jsx";
 import CardSkeleton from "../../../CardSkeleton/CardSkeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
+import "react-loading-skeleton/dist/skeleton.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-// Import required modules
-import { Navigation, Pagination } from "swiper/modules";
-
-import { useState, useEffect } from "react";
 
 export default function SwiperChonList({ accommodations, isLoading }) {
   const [skeletonCount, setSkeletonCount] = useState(4);
@@ -32,13 +28,10 @@ export default function SwiperChonList({ accommodations, isLoading }) {
       }
     };
 
-    // 초기 실행
     handleResize();
 
-    // resize 이벤트 리스너 등록
     window.addEventListener("resize", handleResize);
 
-    // cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -74,7 +67,6 @@ export default function SwiperChonList({ accommodations, isLoading }) {
             slidesPerView: 4,
             spaceBetween: 20,
           },
-
           868: {
             slidesPerView: 3,
             spaceBetween: 40,

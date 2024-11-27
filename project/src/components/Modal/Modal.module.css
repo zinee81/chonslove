@@ -17,7 +17,7 @@
   border-radius: 16px;
   width: 95%;
   max-width: 900px;
-  max-height: 900px;
+  max-height: 98vh;
   position: relative;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -41,24 +41,24 @@
 }
 
 .imageSection {
-  width: 100%; /* 부모 컨테이너의 너비를 100%로 설정 */
+  width: 100%;
   height: 420px;
   display: flex;
   border-radius: 10px;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  overflow: hidden; /* 이미지가 부모 컨테이너를 넘지 않도록 설정 */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .mainImage {
   width: 100%;
-  object-fit: cover; /* 이미지 비율 유지하면서 컨테이너에 맞추기 */
+  height: 100%;
+  object-fit: cover;
 }
 
 .contentWrapper {
   display: flex;
   margin-top: 15px;
-  /* height: 50%; */
 }
 
 .infoSection {
@@ -80,18 +80,17 @@
   margin-bottom: 15px;
 }
 
-/* 위치와 인원수 스타일 추가 */
 .locationAndDetails {
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  gap: 8px; /* 요소 간 간격 */
+  flex-direction: column;
+  gap: 8px;
   margin-top: 30px;
 }
 
 .detail {
   display: flex;
   align-items: center;
-  gap: 8px; /* 아이콘과 텍스트 간 간격 */
+  gap: 8px;
   font-size: 14px;
 }
 
@@ -106,7 +105,7 @@
 
 .reservationSection {
   width: 100%;
-  max-width: 50%; /* 화면 너비 초과 방지 */
+  max-width: 50%;
   border-radius: 12px;
   padding-left: 20px;
   box-sizing: border-box;
@@ -216,7 +215,7 @@
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 12px;
-  color: initial; /* 기본 색상 */
+  color: initial;
   font-size: 15px;
 }
 
@@ -229,6 +228,11 @@
   border: 1px solid #394a4b;
   flex-direction: column;
   gap: 8px;
+  cursor: grab;
+}
+
+.reviewItem:active {
+  cursor: grabbing;
 }
 
 .starRating {
@@ -236,7 +240,7 @@
   font-size: 14px;
   display: flex;
   justify-content: space-between;
-  color: #ffc107; /* 활성화된 별 색 */
+  color: #ffc107;
 }
 
 .slideImage {
@@ -246,32 +250,30 @@
   border-radius: 8px;
 }
 
-/* 링크 기본 색상 설정 */
 a {
-  color: initial; /* 기본 색상으로 설정 */
-  text-decoration: none; /* 기본 underline 제거 */
+  color: initial;
+  text-decoration: none;
 }
 
-/* 링크 hover 상태에서 색상 설정 */
 a:hover {
-  color: initial; /* hover 상태에서도 기본 색상 유지 */
-  text-decoration: underline; /* hover 시에 underline 추가 */
+  color: initial;
+  text-decoration: underline;
 }
 
 .activeStar {
-  color: #ffd700; /* 노란색 별 */
+  color: #ffd700;
 }
 
 .averageRating {
   font-size: 14px;
-  padding-left: 5px; /* 숫자와 별 사이에 여백 추가 */
+  padding-left: 5px;
   color: #606060;
   letter-spacing: 2px;
 }
 
 .reviewDate {
   font-size: 12px;
-  color: #b5b5b5; /* 날짜 색상 */
+  color: #b5b5b5;
   text-align: right;
 }
 
@@ -282,7 +284,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .modalContent {
-    padding: 40px 0;
+    padding: 80px 0 40px 0;
     width: 100%;
     height: 100vh;
     max-height: none;
@@ -294,26 +296,28 @@ a:hover {
     padding: 0 20px;
   }
   .closeButton {
-    top: 5px;
+    width: 35px;
+    height: 35px;
+    top: 40px;
     right: 15px;
   }
   .reservationSection {
     width: 100%;
-    max-width: 100%; /* 화면 너비 초과 방지 */
-    /* padding: 16px; */
+    max-width: 100%;
+
     padding-left: 0;
 
     box-sizing: border-box;
-    margin-top: 20px; /* 모바일 화면에서 상단 여백 추가 */
+    margin-top: 20px;
   }
 
   .dateSection {
-    flex-wrap: wrap; /* 자식 요소들이 줄 바꿈이 가능하게 설정 */
+    flex-wrap: wrap;
   }
 
   .inputGroup {
-    flex: 1 1 48%; /* 한 줄에 두 개씩 배치되도록 설정 */
-    min-width: 120px; /* 최소 너비 지정 */
+    flex: 1 1 48%;
+    min-width: 120px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -389,7 +393,6 @@ a:hover {
   border-radius: 16px;
 }
 
-/* 달력 크기 조정 */
 .calendar_wrapper :global(.react-calendar) {
   width: 100%;
 }
@@ -433,11 +436,6 @@ a:hover {
 .form_value {
   border-radius: 4px;
 }
-
-/* 체크인, 체크아웃, 인원수 hover 색상
-.inputGroup:hover {
-  background-color: #ddd;
-} */
 
 .guestToggleMenu {
   position: absolute;
@@ -485,5 +483,3 @@ a:hover {
 .true {
   background-color: #eee !important;
 }
-
-/* ---- */

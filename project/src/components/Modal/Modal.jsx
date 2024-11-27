@@ -3,20 +3,20 @@ import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-// Import required modules
 import { Navigation, Pagination } from "swiper/modules";
-import { FaMinus, FaPlus } from "react-icons/fa";
-import { ShowAlert } from "../../utils/AlertUtils.js";
 
-import "swiper/css";
-import styles from "./Modal.module.css";
+import { solapiAPI } from "../../api/solapiAPI.js";
+import { accommodationAPI } from "../../api/accommodationAPI";
+import { ShowAlert, ShowConfirm } from "../../utils/AlertUtils.js";
+import StyledCalender from "../ModalCalender/StyledCalender";
+
 import icon1 from "./icon/map-pin.png";
 import icon2 from "./icon/users.png";
 import "./customSwiper.css";
-import StyledCalender from "../ModalCalender/StyledCalender";
+import "swiper/css";
+import styles from "./Modal.module.css";
 
 export default function Modal({ accommodation, onClose }) {
-  const [currentPhoto, setCurrentPhoto] = useState(0);
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(0);
@@ -36,21 +36,33 @@ export default function Modal({ accommodation, onClose }) {
   // TimeSlots 데이터 가져오기
   useEffect(() => {
     const fetchTimeSlots = async () => {
-      try {
-        const response = await fetch(
-          `api/accommodations/timeslots?accommodationId=${accommodation._id}`
-        );
+      if (!accommodation?._id) return;
 
-        const data = await response.json();
+      try {
+        const data = await accommodationAPI.getAccommodationTimeSlots(
+          accommodation._id
+        );
         setTimeSlots(data);
       } catch (error) {
         console.error("TimeSlots 조회 실패:", error);
       }
     };
-    fetchTimeSlots();
-  }, [accommodation._id]);
 
-  const handlePhotoClick = (index) => setCurrentPhoto(index);
+    fetchTimeSlots();
+  }, [accommodation]);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   const guestAlarm = async (reservationData) => {
     try {
@@ -58,22 +70,7 @@ export default function Modal({ accommodation, onClose }) {
         reservationId: reservationData._id,
         url: `chonslove.netlify.app/guest/${reservationData._id}`,
       };
-
-      const response = await fetch("api/alarm/request_guest", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(alarmData),
-      });
-
-      if (!response.ok) {
-        throw new Error("알람 전송에 실패했습니다.");
-      }
-
-      const data = await response.json();
-      console.log("알람 전송 성공:", data);
-      console.log(alarmData);
+      await solapiAPI.sendRequestGuest(alarmData);
     } catch (error) {
       console.error("알람 전송 실패:", error);
     }
@@ -83,24 +80,9 @@ export default function Modal({ accommodation, onClose }) {
     try {
       const alarmData = {
         reservationId: reservationData._id,
-        url: `chonslove.netlify.app/host/resve?id=${reservationData._id}`,
+        url: `chonslove.netlify.app/host/resve/?id=${reservationData._id}`,
       };
-
-      const response = await fetch("api/alarm/request_host", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(alarmData),
-      });
-
-      if (!response.ok) {
-        throw new Error("알람 전송에 실패했습니다.");
-      }
-
-      const data = await response.json();
-      console.log("알람 전송 성공:", data);
-      console.log(alarmData);
+      await solapiAPI.sendRequestHost(alarmData);
     } catch (error) {
       console.error("알람 전송 실패:", error);
     }
@@ -124,38 +106,54 @@ export default function Modal({ accommodation, onClose }) {
         return;
       }
 
-      const reservationData = {
-        accommodationId: accommodation._id,
-        userId: user._id,
-        startDate: new Date(checkIn).toLocaleDateString(),
-        endDate: new Date(checkOut).toLocaleDateString(),
-        person: parseInt(guests),
-        message: requests || "",
-      };
+      if (user && guests !== 0 && checkIn && checkOut) {
+        const reservationConfirm = await ShowConfirm(
+          "question",
+          `${accommodation.name}<br>예약 하시겠습니까?`,
+          `체크인 : ${
+            new Date(checkIn).toLocaleDateString().split("T")[0]
+          }<br> 체크아웃 : ${
+            new Date(checkOut).toLocaleDateString().split("T")[0]
+          }<br> 인원수 : ${guests}명`
+        );
 
-      console.log("Sending reservation data:", reservationData);
+        if (reservationConfirm.isConfirmed) {
+          const reservationData = {
+            accommodationId: accommodation._id,
+            userId: user._id,
+            startDate: new Date(checkIn).toLocaleDateString(),
+            endDate: new Date(checkOut).toLocaleDateString(),
+            person: parseInt(guests),
+            message: requests || "",
+          };
 
-      const response = await fetch("api/reservations/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reservationData),
-      });
+          console.log("Sending reservation data:", reservationData);
 
-      const data = await response.json();
+          const response = await fetch("api/reservations/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reservationData),
+          });
 
-      if (response.ok) {
-        ShowAlert("success", "", "예약이 완료되었습니다.");
-        setCheckIn("");
-        setCheckOut("");
-        setGuests(0);
-        setRequests("");
-        onClose();
-        guestAlarm(data);
-        hostAlarm(data);
-      } else {
-        throw new Error(data.message || "예약 처리 중 오류가 발생했습니다.");
+          const data = await response.json();
+
+          if (response.ok) {
+            ShowAlert("success", "", "예약이 완료되었습니다.");
+            setCheckIn("");
+            setCheckOut("");
+            setGuests(0);
+            setRequests("");
+            onClose();
+            guestAlarm(data);
+            hostAlarm(data);
+          } else {
+            throw new Error(
+              data.message || "예약 처리 중 오류가 발생했습니다."
+            );
+          }
+        }
       }
     } catch (error) {
       console.error("Reservation error:", error);
@@ -164,7 +162,6 @@ export default function Modal({ accommodation, onClose }) {
     }
   };
 
-  // 별점 렌더링 함수 (노란색으로 색상 지정)
   const renderStars = (grade) => {
     return Array.from({ length: 5 }, (_, i) => (
       <span
@@ -172,24 +169,23 @@ export default function Modal({ accommodation, onClose }) {
         className={`${styles.star} ${
           i < grade ? styles.activeStar : styles.star
         }`}
-        style={{ color: i < grade ? "gold" : "#dddddd" }} // 별 색을 노란색과 회색으로 지정
+        style={{ color: i < grade ? "gold" : "#dddddd" }}
       >
         ★
       </span>
     ));
   };
 
-  // 평균 별점 계산
   const calculateAverageGrade = () => {
-    const grade = accommodation.grade; // accommodation의 grade를 별점으로 사용
-    return grade.toFixed(1); // 소수점 첫째 자리까지 계산
+    const grade = accommodation.grade;
+    return grade.toFixed(1);
   };
 
   // 리뷰 날짜를 메모이제이션
   const reviewDates = useMemo(() => {
     return accommodation.review.map((_, index) => {
       const today = new Date();
-      const randomDays = Math.floor(Math.random() * 30); // 최근 30일 내의 랜덤한 날짜
+      const randomDays = Math.floor(Math.random() * 30);
       const reviewDate = new Date(today);
       reviewDate.setDate(today.getDate() - randomDays);
 
@@ -206,7 +202,6 @@ export default function Modal({ accommodation, onClose }) {
     return reviewDates[index];
   };
 
-  // 체크인 날짜 선택 핸들러
   const handleCheckInSelect = (date) => {
     setCheckInDate(date);
     setCheckIn(date.toISOString());
@@ -214,7 +209,6 @@ export default function Modal({ accommodation, onClose }) {
     setShowCheckOutCalendar(true);
   };
 
-  // 체크아웃 날짜 선택 핸들러
   const handleCheckOutSelect = (date) => {
     setCheckOut(date.toISOString());
     setShowCheckOutCalendar(false);
@@ -240,7 +234,6 @@ export default function Modal({ accommodation, onClose }) {
           ✕
         </button>
 
-        {/* 숙소 이미지 */}
         <div className={styles.headerSection}>
           <Swiper
             pagination={{
@@ -266,7 +259,6 @@ export default function Modal({ accommodation, onClose }) {
 
         {/* 숙소정보, 예약폼 */}
         <div className={styles.contentWrapper}>
-          {/* 숙소 정보*/}
           <div className={styles.infoSection}>
             <div className={styles.infoSection_warp}>
               <h2>{accommodation.name}</h2>
@@ -435,26 +427,26 @@ export default function Modal({ accommodation, onClose }) {
             </span>
           </div>
           <Swiper
-            slidesPerView={3} // 한 번에 3개 리뷰 표시
+            slidesPerView={3.2} // 한 번에 3개 리뷰 표시
             spaceBetween={20} // 리뷰 간 간격 설정
             modules={[]} // Pagination 모듈 제거
             className={styles.mySwiper}
             breakpoints={{
               1200: {
-                slidesPerView: 3,
+                slidesPerView: 3.2,
                 spaceBetween: 20,
               },
               768: {
-                slidesPerView: 3,
+                slidesPerView: 3.2,
                 spaceBetween: 10,
               },
 
               530: {
-                slidesPerView: 2,
+                slidesPerView: 2.2,
                 spaceBetween: 20,
               },
               230: {
-                slidesPerView: 1,
+                slidesPerView: 1.2,
                 spaceBetween: 20,
               },
             }}

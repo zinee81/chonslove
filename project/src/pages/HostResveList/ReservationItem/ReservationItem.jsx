@@ -1,5 +1,6 @@
-import styles from "../HostResveList.module.css";
 import { useNavigate } from "react-router-dom";
+
+import styles from "../HostResveList.module.css";
 
 export default function ReservationItem({ reservation }) {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function ReservationItem({ reservation }) {
     <div
       className={styles.hostResve_box}
       onClick={handleClick}
-      style={{ cursor: "pointer" }} // 클릭 가능함을 표시
+      style={{ cursor: "pointer" }}
     >
       <div className={styles.guest_infoValue}>
         {reservation.userId.name}

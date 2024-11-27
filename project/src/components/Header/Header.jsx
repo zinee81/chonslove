@@ -1,12 +1,13 @@
+import { useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import gsap from "gsap";
+
+import { ShowAlert } from "../../utils/AlertUtils.js";
+
 import styles from "./Header.module.css";
 import logo1 from "/img/logo1.png";
 import logo2 from "/img/logo2.png";
-
-import { useEffect } from "react";
-import gsap from "gsap";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { ShowAlert } from "../../utils/AlertUtils.js";
 
 export default function Header() {
   const { user, logout } = useAuth();

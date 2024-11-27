@@ -45,20 +45,28 @@
   line-height: 20px;
   font-size: 14px;
   border: none;
-  cursor: pointer;
 }
 
+.searchCalendar .react-calendar__tile:enabled {
+  cursor: pointer;
+}
 /* hover 효과 */
 .searchCalendar .react-calendar__tile:enabled:hover {
   background-color: #f8f8f8;
   border-radius: none !important;
 }
 
+.react-calendar__tile:disabled {
+  background-color: transparent;
+  color: #cdcdcd !important;
+  cursor: not-allowed !important;
+}
+
 /* 오늘 날짜 */
 .searchCalendar .react-calendar__tile--now {
-  background: #ffeb3b33;
-  font-weight: bold;
-  color: inherit;
+  background: transparent;
+  color: #cdcdcd;
+  font-weight: normal;
 }
 
 /* 체크인/체크아웃 날짜 범위 스타일 */
@@ -66,6 +74,10 @@
 /* 주말 색상 */
 .searchCalendar .react-calendar__month-view__days__day--weekend {
   color: #d10000;
+}
+
+.searchCalendar .react-calendar__month-view__days__day--weekend:disabled {
+  color: #cdcdcd;
 }
 
 .searchCalendar .react-calendar__tile--active {

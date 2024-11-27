@@ -28,6 +28,10 @@
   cursor: pointer;
 }
 
+.styledCalendar .react-calendar__tile:enabled:hover {
+  background-color: #bbb;
+}
+
 .styledCalender .react-calendar__navigation {
   display: flex;
   justify-content: space-between;
@@ -116,6 +120,7 @@
 
 .styledCalender .react-calendar__tile--now:enabled:hover {
   background: transparent;
+
   cursor: not-allowed;
 }
 

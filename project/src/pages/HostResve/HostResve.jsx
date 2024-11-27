@@ -1,12 +1,16 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { reservationAPI } from "../../api/reservationAPI";
+import { solapiAPI } from "../../api/solapiAPI";
+import { ShowAlert } from "../../utils/AlertUtils.js";
+import useQueryRemover from "../../hooks/useQueryRemover.js";
+
 import styles from "./HostResve.module.css";
 import logo3 from "/img/logo3.png";
 import exit from "/img/exit.png";
 import resve from "/img/resve.png";
 
-import { useState, useEffect } from "react";
-import { ShowAlert } from "../../utils/AlertUtils.js";
-import useQueryRemover from "../../hooks/useQueryRemover.js";
-import { useNavigate } from "react-router-dom";
 export default function HostResve() {
   const navigate = useNavigate();
 
@@ -31,15 +35,7 @@ export default function HostResve() {
 
     setLoading(true);
     try {
-      const response = await fetch(
-        `api/reservations/?reservationId=${reservationId}`
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "예약 정보를 불러오는데 실패했습니다.");
-      }
+      const data = await reservationAPI.getReservation(reservationId);
 
       if (data.state === "confirm") {
         setReservation({
@@ -65,6 +61,11 @@ export default function HostResve() {
       setAccommodationId(data.accommodationId._id);
     } catch (err) {
       setError(err.message || "예약 정보를 불러오는 데 실패했습니다.");
+      ShowAlert(
+        "error",
+        "",
+        err.message || "예약 정보를 불러오는 데 실패했습니다."
+      );
     } finally {
       setLoading(false);
     }
@@ -83,48 +84,21 @@ export default function HostResve() {
         reservationId: reservationId,
         url: `chonslove.netlify.app/guest/${reservationId}`,
       };
-
-      const response = await fetch("api/api/alarm/confirm", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(alarmData),
-      });
-
-      if (!response.ok) {
-        throw new Error("알람 전송에 실패했습니다.");
-      }
-
-      const data = await response.json();
-      console.log("알람 전송 성공:", data);
+      await solapiAPI.sendConfirm(alarmData);
     } catch (error) {
       console.error("알람 전송 실패:", error);
     }
   };
 
-  async function reservationConfirm() {
+  const reservationConfirm = async () => {
     if (!reservationId) {
       ShowAlert("fail", "실패", "예약 ID가 존재하지 않습니다.");
       return;
     }
 
     try {
-      const response = await fetch(
-        `api/reservations/confirm/${reservationId}`,
-        {
-          method: "PUT",
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "네트워크 응답이 좋지 않습니다.");
-      }
-
-      confirmAlarm();
-
+      const data = await reservationAPI.confirmReservation(reservationId);
+      await confirmAlarm();
       setReservation({
         state: "승인완료",
         color: { color: "#394A4B" },
@@ -134,50 +108,21 @@ export default function HostResve() {
     } catch (e) {
       ShowAlert("fail", "실패", e.message || "예약 승인 요청에 실패했습니다.");
     }
-  }
+  };
 
   const declineAlarm = async () => {
     try {
-      const alarmData = {
-        reservationId: reservationId,
-      };
-
-      const response = await fetch("api/api/alarm/decline", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(alarmData),
-      });
-
-      if (!response.ok) {
-        throw new Error("알람 전송에 실패했습니다.");
-      }
-
-      const data = await response.json();
-      console.log("알람 전송 성공:", data);
+      const alarmData = { reservationId: reservationId };
+      await solapiAPI.sendDecline(alarmData);
     } catch (error) {
       console.error("알람 전송 실패:", error);
     }
   };
 
-  async function reservationDecline() {
+  const reservationDecline = async () => {
     try {
-      const response = await fetch(
-        `api/reservations/decline/${reservationId}`,
-        {
-          method: "PUT", // 필요한 HTTP 메서드 설정
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("네트워크 응답이 좋지 않습니다.");
-      }
-
-      const data = await response.json();
-
-      declineAlarm();
-
+      const data = await reservationAPI.declineReservation(reservationId);
+      await declineAlarm();
       setReservation({
         state: "승인거절",
         color: { color: "#a6a6a6" },
@@ -185,9 +130,9 @@ export default function HostResve() {
       });
       ShowAlert("success", "성공", data.message);
     } catch (e) {
-      ShowAlert("fail", "실패", "예약 거절 요청에 실패했습니다.");
+      ShowAlert("fail", "실패", e.message || "예약 거절 요청에 실패했습니다.");
     }
-  }
+  };
 
   const handleGoBack = () => {
     // 이전 페이지로 이동할 때 직접 경로 지정

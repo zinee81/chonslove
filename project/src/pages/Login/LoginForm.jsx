@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { ShowAlert } from "../../utils/AlertUtils.js";
+import { userAPI } from "../../api/userAPI";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,6 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log("🔑 Login attempt...", formData);
 
     try {
       if (!formData.id) {
@@ -39,27 +39,13 @@ const LoginForm = () => {
         return;
       }
 
-      const response = await fetch("api/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const data = await userAPI.login(formData);
 
-      const data = await response.json();
-      console.log("📡 Server response:", data);
-
-      if (response.ok) {
-        if (data.id) {
-          login(data);
-          navigate("/");
-        } else {
-          setError(data.message);
-        }
+      if (data.id) {
+        login(data);
+        navigate("/");
       } else {
-        console.error("❌ Login error:", data.message);
-        setError(data.message || "로그인에 실패했습니다.");
+        setError(data.message);
       }
     } catch (error) {
       console.error("💥 API call error:", error);

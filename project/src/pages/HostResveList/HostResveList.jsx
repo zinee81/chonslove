@@ -1,44 +1,41 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import ReservationItem from "./ReservationItem/ReservationItem";
+import { accommodationAPI } from "../../api/accommodationAPI";
+import { ShowAlert } from "../../utils/AlertUtils";
+
 import styles from "./HostResveList.module.css";
 import logo3 from "/img/logo3.png";
 import resve from "/img/resve.png";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import ReservationItem from "./ReservationItem/ReservationItem";
 
 export default function HostResveList() {
   const { id } = useParams();
   const [reservationData, setReservationData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [accommodationName, setAccommodationName] = useState("");
 
   const fetchReservation = async () => {
     try {
-      const acc_response = await fetch(
-        `api/accommodations/detail?accommodationId=${id}`
-      );
-      const acc_data = await acc_response.json();
-      setAccommodationName(acc_data.name);
+      const accData = await accommodationAPI.getAccommodationDetail(id);
+      setAccommodationName(accData.name);
 
-      const response = await fetch(
-        `api/accommodations/reservations?accommodationId=${id}`
-      );
-
-      const data = await response.json();
-      const reservationDatas = data.reservationData;
-
-      setReservationData(reservationDatas); // 예약 정보 저장
-    } catch (err) {
-      setError("예약 정보를 불러오는 데 실패했습니다."); // 오류 처리
+      const reservationsResponse =
+        await accommodationAPI.getAccommodationReservations(id);
+      setReservationData(reservationsResponse.reservationData);
+    } catch (error) {
+      console.error("예약 정보 조회 실패:", error);
+      setError("예약 정보를 불러오는 데 실패했습니다.");
+      ShowAlert("error", "", "예약 정보를 불러오는 데 실패했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
-  // 컴포넌트 실행이 완료된 후 useEffect 실행
   useEffect(() => {
     fetchReservation();
-  }, []);
+  }, [id]); // id가 변경될 때마다 다시 조회
 
   return (
     <div className={styles.hostResve}>
@@ -58,9 +55,9 @@ export default function HostResveList() {
         {loading && <p>로딩 중...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
         {reservationData &&
-          reservationData.map((res, index) => {
-            return <ReservationItem reservation={res} key={index} />;
-          })}
+          reservationData.map((res, index) => (
+            <ReservationItem reservation={res} key={res._id || index} />
+          ))}
       </div>
     </div>
   );

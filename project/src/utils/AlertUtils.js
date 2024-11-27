@@ -1,7 +1,5 @@
-// src/AlertUtils.js
 import Swal from "sweetalert2";
 
-// 기본 알림창
 export function ShowAlert(icon, title, html, useTimer = true) {
   const options = {
     icon,
@@ -20,7 +18,6 @@ export function ShowAlert(icon, title, html, useTimer = true) {
   return Swal.fire(options);
 }
 
-// 확인/취소 선택창
 export function ShowConfirm(icon, title, html) {
   return Swal.fire({
     icon,
@@ -34,7 +31,6 @@ export function ShowConfirm(icon, title, html) {
   });
 }
 
-// 로딩 화면 표시
 export function ShowLoading(title, html = "") {
   Swal.fire({
     title,

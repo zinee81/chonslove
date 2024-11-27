@@ -1,6 +1,8 @@
 import { useState } from "react";
-import styles from "./ChonCard.module.css";
+
 import Modal from "../../../../Modal/Modal";
+
+import styles from "./ChonCard.module.css";
 
 export default function ChonCard({ accommodations }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

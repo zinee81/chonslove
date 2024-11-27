@@ -1,8 +1,10 @@
-import styles from "./GuestResve.module.css";
-import logo3 from "/img/logo3.png";
 import { useState, useEffect } from "react";
 import { ShowAlert, ShowConfirm } from "../../utils/AlertUtils.js";
 import { useParams } from "react-router-dom";
+import { reservationAPI } from "../../api/reservationAPI";
+
+import logo3 from "/img/logo3.png";
+import styles from "./GuestResve.module.css";
 
 export default function GuestResve() {
   const { id } = useParams();
@@ -17,12 +19,10 @@ export default function GuestResve() {
 
   const fetchReservationData = async () => {
     try {
-      const response = await fetch(`api/reservations/?reservationId=${id}`);
+      const data = await reservationAPI.getReservation(id);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "예약 정보를 불러오는데 실패했습니다.");
+      if (!data) {
+        throw new Error("예약 정보를 불러오는데 실패했습니다.");
       }
 
       if (data.state === "confirm") {
@@ -72,14 +72,7 @@ export default function GuestResve() {
     if (confirmCancel.isConfirmed) {
       // 확인 클릭 시 예약 취소 함수 호출
       try {
-        const response = await fetch(`api/reservations/delete/${id}`, {
-          method: "PUT", // 필요한 HTTP 메서드 설정
-        });
-
-        if (!response.ok) {
-          throw new Error("네트워크 응답이 좋지 않습니다.");
-        }
-        const data = await response.json();
+        const data = await reservationAPI.deleteReservation(id);
         setReservation({
           state: "취소된 예약",
           color: { color: "red" },

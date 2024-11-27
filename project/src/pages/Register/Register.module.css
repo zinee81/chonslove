@@ -54,10 +54,17 @@
   border: 0;
   border-bottom: 1px solid #e4dbcd;
   outline: none;
-}
-input::placeholder {
   font-size: 20px;
-  color: #dcdcdc;
+}
+.textBoxText::placeholder {
+  font-size: 20px;
+  color: #ccc;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 /*=======================================*/
