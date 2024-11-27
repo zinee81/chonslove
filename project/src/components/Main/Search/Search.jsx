@@ -95,6 +95,10 @@ export default forwardRef(function Search(props, searchRef) {
 
   const handleDateChange = (value) => {
     setDateRange(value);
+    if (value[1]) {
+      // 체크아웃 날짜가 선택되었다면
+      setActiveField(null); // 캘린더 닫기
+    }
   };
 
   return (
